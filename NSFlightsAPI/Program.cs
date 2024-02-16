@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using NSFlightsBusiness;
 using NSFlightsDataAccess;
+using Serilog;
+using Serilog.Events;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,12 +28,10 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-/*
 app.UseCors(x => x
     .AllowAnyMethod()
     .AllowAnyHeader()
     .SetIsOriginAllowed(origin => true)
     .AllowCredentials());
-*/
 
 app.Run();

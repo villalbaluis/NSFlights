@@ -18,7 +18,7 @@ public class JourneyController : ControllerBase
     {
         try
         {
-            var journey = await _journeyService.GetJourneyAsync(origin, destination, "https://recruiting-api.newshore.es/api/flights/2");
+            var journey = await _journeyService.GetJourneyAsync(origin.ToUpper(), destination.ToUpper(), "https://recruiting-api.newshore.es/api/flights/2");
             if(journey != null)
             {
                 return Ok(journey);
