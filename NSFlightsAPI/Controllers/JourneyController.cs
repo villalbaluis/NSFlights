@@ -19,11 +19,15 @@ public class JourneyController : ControllerBase
         try
         {
             var journey = await _journeyService.GetJourneyAsync(origin, destination, "https://recruiting-api.newshore.es/api/flights/2");
-            return Ok(journey);
+            if(journey != null)
+            {
+                return Ok(journey);
+            }
+            return StatusCode(503, $"There's no match information about the journey. Try again with other places.");
         }
         catch (Exception ex)
         {
-            return StatusCode(500, $"Error: {ex.Message}");
+            return StatusCode(500, $"Internal Server Error, error: {ex.Message}, please contact with ST.");
         }
     }
 

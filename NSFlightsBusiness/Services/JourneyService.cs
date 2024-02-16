@@ -50,6 +50,7 @@ namespace NSFlightsBusiness
 
                     return journey;
                 }
+
                 return null;
             }
             catch (Exception ex)
