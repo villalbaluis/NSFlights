@@ -1,5 +1,5 @@
 ﻿using NSFlightsBusiness.Entities;
-using System.Collections.Generic;
+
 namespace NSFlightsBusiness
 {
     public class JourneyService
@@ -8,7 +8,7 @@ namespace NSFlightsBusiness
 
         public JourneyService(FlightApiClient flightApiClient)
         {
-            _flightApiClient = flightApiClient;
+            _flightApiClient = flightApiClient ?? throw new ArgumentNullException(nameof(flightApiClient));
         }
 
         public async Task<Journey> GetJourneyAsync(string origin, string destination, string apiUrl)
@@ -55,7 +55,6 @@ namespace NSFlightsBusiness
                         Destination = destination,
                         Price = totalPrice
                     };
-
                     return journey;
                 }
 

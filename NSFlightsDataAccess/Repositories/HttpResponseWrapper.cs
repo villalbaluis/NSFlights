@@ -2,6 +2,11 @@
 
 namespace HttpResponseWrapper
 {
+    /// <summary>
+    /// This is a Generic Class I use in the API projects
+    /// is not implemented in this case, but could be a
+    /// feature in case.
+    /// </summary>
     public class HttpResponseWrapper<T>
     {
         public HttpResponseWrapper(T? response, bool error, HttpResponseMessage httpResponseMessage)

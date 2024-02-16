@@ -1,18 +1,18 @@
-using Microsoft.EntityFrameworkCore;
 using NSFlightsBusiness;
 using NSFlightsDataAccess;
-using Serilog;
-using Serilog.Events;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Inject of the dependencies create, or connection properties
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name=SqlServerConnect"));
 builder.Services.AddScoped<JourneyService>();
+builder.Services.AddScoped<IJourneyRepository, JourneyRepository>();
 builder.Services.AddScoped<FlightApiClient>();
-builder.Services.AddScoped<JourneyService>();
 
 var app = builder.Build();
 
@@ -28,6 +28,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+// Use CORS to allow any request from any URL (Just in case)
 app.UseCors(x => x
     .AllowAnyMethod()
     .AllowAnyHeader()

@@ -7,9 +7,11 @@ using NSFlightsDataAccess;
 public class JourneyController : ControllerBase
 {
     private readonly JourneyService _journeyService;
+    private readonly IJourneyRepository _journeyRepository;
 
-    public JourneyController(JourneyService journeyService)
+    public JourneyController(IJourneyRepository journeyRepository, JourneyService journeyService)
     {
+        _journeyRepository = journeyRepository ?? throw new ArgumentNullException(nameof(journeyRepository));
         _journeyService = journeyService;
     }
 
@@ -21,6 +23,7 @@ public class JourneyController : ControllerBase
             var journey = await _journeyService.GetJourneyAsync(origin.ToUpper(), destination.ToUpper(), "https://recruiting-api.newshore.es/api/flights/2");
             if(journey != null)
             {
+                await _journeyRepository.SaveJourneyAsync(journey);
                 return Ok(journey);
             }
             return StatusCode(503, $"There's no match information about the journey. Try again with other places.");

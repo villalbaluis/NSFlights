@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using NSFlightsBusiness.Entities;
 using NSFlightsBusiness.Models;
 
 namespace NSFlightsBusiness
@@ -22,7 +21,7 @@ namespace NSFlightsBusiness
                 if (response.IsSuccessStatusCode)
                 {
                     var content = await response.Content.ReadAsStringAsync();
-                    ///var flightResponse = JsonConvert.DeserializeObject<FlightsDto>(content);
+                    // return the result of the API response into a JSON Object
                     return JsonConvert.DeserializeObject<List<FlightsDto>>(content)!;
                 }
                 else
